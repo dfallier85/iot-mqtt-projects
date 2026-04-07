@@ -1,0 +1,118 @@
+[
+  {
+    "id": "tab_pipeline_1",
+    "type": "tab",
+    "label": "Node-RED MQTT Pipeline",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "broker_pipeline_1",
+    "type": "mqtt-broker",
+    "name": "Local MQTT Broker",
+    "broker": "192.168.4.1",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  },
+  {
+    "id": "inject_wave_1",
+    "type": "inject",
+    "z": "tab_pipeline_1",
+    "name": "Send Wave",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "payload": "wave",
+    "payloadType": "str",
+    "x": 140,
+    "y": 100,
+    "wires": [
+      [
+        "mqtt_out_cmd_1"
+      ]
+    ]
+  },
+  {
+    "id": "inject_home_1",
+    "type": "inject",
+    "z": "tab_pipeline_1",
+    "name": "Send Home",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "payload": "home",
+    "payloadType": "str",
+    "x": 140,
+    "y": 160,
+    "wires": [
+      [
+        "mqtt_out_cmd_1"
+      ]
+    ]
+  },
+  {
+    "id": "mqtt_out_cmd_1",
+    "type": "mqtt out",
+    "z": "tab_pipeline_1",
+    "name": "Command Topic",
+    "topic": "robot/test/cmd",
+    "qos": "",
+    "retain": "",
+    "broker": "broker_pipeline_1",
+    "x": 370,
+    "y": 130,
+    "wires": []
+  },
+  {
+    "id": "mqtt_in_resp_1",
+    "type": "mqtt in",
+    "z": "tab_pipeline_1",
+    "name": "Response Topic",
+    "topic": "robot/test/response",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "broker_pipeline_1",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 150,
+    "y": 260,
+    "wires": [
+      [
+        "debug_resp_1"
+      ]
+    ]
+  },
+  {
+    "id": "debug_resp_1",
+    "type": "debug",
+    "z": "tab_pipeline_1",
+    "name": "MQTT Response",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 380,
+    "y": 260,
+    "wires": []
+  }
+]
